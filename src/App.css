@@ -1030,3 +1030,135 @@ html:lang(ko) .hero h1 {
 html:lang(ko) .hero-note {
   font-size: 11px;
 }
+/* Players & Records page */
+.stats-title {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 28px;
+  color: #17243a;
+  margin: 0 0 22px;
+}
+
+.stats-title + .h2h-list,
+.stats-title + .player-grid {
+  margin-bottom: 60px;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.player-card {
+  border: 1px solid #e8e5df;
+  padding: 26px 24px;
+  border-top: 4px solid #d7ad58;
+}
+
+.player-card h3 {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 22px;
+  color: #17243a;
+  margin: 0 0 14px;
+}
+
+.player-winrate {
+  font-size: 40px;
+  font-weight: 800;
+  color: #14243e;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.player-winrate span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #a3aab8;
+  margin-top: 6px;
+}
+
+.player-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0;
+}
+
+.player-numbers dt {
+  font-size: 11px;
+  color: #788195;
+}
+
+.player-numbers dd {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #17243a;
+}
+
+.h2h-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.h2h-card {
+  background: #14243e;
+  color: #ffffff;
+  padding: 24px;
+}
+
+.h2h-names,
+.h2h-averages {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.h2h-names {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.h2h-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 12px;
+}
+
+.h2h-score strong {
+  font-size: 38px;
+  color: #d7ad58;
+  line-height: 1;
+}
+
+.h2h-games {
+  color: #8f9bb0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.h2h-bar {
+  height: 6px;
+  background: #4a5a76;
+}
+
+.h2h-bar div {
+  height: 100%;
+  background: #d7ad58;
+}
+
+.h2h-averages {
+  margin-top: 10px;
+  color: #aab3c2;
+  font-size: 12px;
+}
+
+.stats-note {
+  color: #a3aab8;
+  font-size: 12px;
+}

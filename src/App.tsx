@@ -3,6 +3,7 @@ import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
 import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
 import GameDetailPage from './pages/GameDetailPage'
+import PlayersPage from './pages/PlayersPage'
 import './App.css'
 
 // Scrolls to a section (e.g. /#about) or to the top when the page changes
@@ -64,7 +65,7 @@ function App() {
           <NavLink to="/games">{nav.games}</NavLink>
           <Link to="/#tournaments">{nav.tournaments}</Link>
           <Link to="/#learn">{nav.learn}</Link>
-          <Link to="/#members">{nav.members}</Link>
+          <NavLink to="/players">{nav.members}</NavLink>
         </nav>
 
         <button
@@ -79,7 +80,7 @@ function App() {
         <Route path="/" element={<HomePage isEnglish={isEnglish} />} />
         <Route path="/games" element={<GamesPage isEnglish={isEnglish} />} />
         <Route path="/games/:gameId" element={<GameDetailPage isEnglish={isEnglish} />} />
-                <Route path="/games/:gameId" element={<GameDetailPage isEnglish={isEnglish} />} />
+        <Route path="/players" element={<PlayersPage isEnglish={isEnglish} />} />
         <Route path="*" element={<HomePage isEnglish={isEnglish} />} />
       </Routes>
 

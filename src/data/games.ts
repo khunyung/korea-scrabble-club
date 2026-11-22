@@ -8,7 +8,7 @@
 import { finalScores, parseGcg, type GcgGame } from '../lib/gcg'
 
 import emanuelJeremy20261108G1 from './games/emanuel_jeremy_1108_g1.gcg?raw'
-import emanuelJeremy20261108G2 from './games/emanuel_jeremy_1108_g2.gcg?raw'
+import emanuelJeremy20261108G3 from './games/emanuel_jeremy_1108_g3.gcg?raw'
 
 type GameRecord = {
   id: string // used in the web address, e.g. /games/KSC-2026-001
@@ -41,7 +41,7 @@ const gameRecords: GameRecord[] = [
       emanuel: 'Emanuel Chicoine',
       jeremy: 'Jeremy Goard',
     },
-    gcg: emanuelJeremy20261108G2,
+    gcg: emanuelJeremy20261108G3,
   },
 ]
 

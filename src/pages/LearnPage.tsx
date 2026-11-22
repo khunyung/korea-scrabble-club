@@ -102,6 +102,14 @@ function LearnPage({ isEnglish }: LearnPageProps) {
       ),
     },
     {
+      name: 'Quackle',
+      url: 'https://github.com/quackle/quackle',
+      text: t(
+        'Free desktop program for playing against the computer and analysing positions and games.',
+        '컴퓨터와 대국하고 국면과 경기를 분석할 수 있는 무료 데스크톱 프로그램입니다.',
+      ),
+    },    
+    {
       name: 'Macondo',
       url: 'https://github.com/domino14/macondo',
       text: t(

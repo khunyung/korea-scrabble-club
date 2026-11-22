@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
 import GameDetailPage from './pages/GameDetailPage'
 import PlayersPage from './pages/PlayersPage'
+import LearnPage from './pages/LearnPage'
 import './App.css'
 
 // Scrolls to a section (e.g. /#about) or to the top when the page changes
@@ -64,7 +65,7 @@ function App() {
           <Link to="/#about">{nav.about}</Link>
           <NavLink to="/games">{nav.games}</NavLink>
           <Link to="/#tournaments">{nav.tournaments}</Link>
-          <Link to="/#learn">{nav.learn}</Link>
+          <NavLink to="/learn">{nav.learn}</NavLink>
           <NavLink to="/players">{nav.members}</NavLink>
         </nav>
 
@@ -81,6 +82,7 @@ function App() {
         <Route path="/games" element={<GamesPage isEnglish={isEnglish} />} />
         <Route path="/games/:gameId" element={<GameDetailPage isEnglish={isEnglish} />} />
         <Route path="/players" element={<PlayersPage isEnglish={isEnglish} />} />
+        <Route path="/learn" element={<LearnPage isEnglish={isEnglish} />} />
         <Route path="*" element={<HomePage isEnglish={isEnglish} />} />
       </Routes>
 

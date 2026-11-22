@@ -120,7 +120,7 @@ function HomePage({ isEnglish }: HomePageProps) {
               <div className="feature-icon">✎</div>
               <h3>{content.feature3}</h3>
               <p>{content.feature3desc}</p>
-              <a href="#learn">{content.startLearning} →</a>
+              <Link to="/learn">{content.startLearning} →</Link>
             </article>
           </div>
         </section>

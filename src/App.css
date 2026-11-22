@@ -1010,3 +1010,23 @@ button {
     font-size: 19px;
   }
 }
+
+/* Korean text adjustments */
+html:lang(ko) {
+  word-break: keep-all;
+}
+
+html:lang(ko) .eyebrow,
+html:lang(ko) .section-label,
+html:lang(ko) .image-caption,
+html:lang(ko) .hero-note {
+  letter-spacing: 1px;
+}
+
+html:lang(ko) .hero h1 {
+  letter-spacing: -1px;
+}
+
+html:lang(ko) .hero-note {
+  font-size: 11px;
+}

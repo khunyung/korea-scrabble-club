@@ -7,7 +7,8 @@
 
 import { finalScores, parseGcg, type GcgGame } from '../lib/gcg'
 
-import emanuelJeremy20261108 from './games/emanuel_jeremy_1108_g1.gcg?raw'
+import emanuelJeremy20261108G1 from './games/emanuel_jeremy_1108_g1.gcg?raw'
+import emanuelJeremy20261108G2 from './games/emanuel_jeremy_1108_g2.gcg?raw'
 
 type GameRecord = {
   id: string // used in the web address, e.g. /games/KSC-2026-001
@@ -29,7 +30,18 @@ const gameRecords: GameRecord[] = [
       emanuel: 'Emanuel Chicoine',
       jeremy: 'Jeremy Goard',
     },
-    gcg: emanuelJeremy20261108,
+    gcg: emanuelJeremy20261108G1,
+  },
+  {
+    id: 'KSC-2026-002',
+    date: '2026-11-08',
+    location: { en: 'In person', ko: '대면 경기' },
+    type: 'friendly',
+    players: {
+      emanuel: 'Emanuel Chicoine',
+      jeremy: 'Jeremy Goard',
+    },
+    gcg: emanuelJeremy20261108G2,
   },
 ]
 
@@ -65,4 +77,4 @@ export const games: ClubGame[] = gameRecords
       winner,
     }
   })
-  .sort((a, b) => b.date.localeCompare(a.date)) // newest first
+  .sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)) // newest first, then by game number

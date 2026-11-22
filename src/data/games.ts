@@ -7,7 +7,7 @@
 
 import { finalScores, parseGcg, type GcgGame } from '../lib/gcg'
 
-import minsueEmanuel20261108 from './games/minsue_emanuel_1108_g1.gcg?raw'
+import emanuelJeremy20261108 from './games/emanuel_jeremy_1108_g1.gcg?raw'
 
 type GameRecord = {
   id: string // used in the web address, e.g. /games/KSC-2026-001
@@ -26,10 +26,10 @@ const gameRecords: GameRecord[] = [
     location: { en: 'In person', ko: '대면 경기' },
     type: 'friendly',
     players: {
-      minsue: 'Minsue Kim',
       emanuel: 'Emanuel Chicoine',
+      jeremy: 'Jeremy Goard',
     },
-    gcg: minsueEmanuel20261108,
+    gcg: emanuelJeremy20261108,
   },
 ]
 

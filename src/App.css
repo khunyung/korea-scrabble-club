@@ -1,8 +1,8 @@
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap');
 
 :root {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'DM Sans', 'Noto Sans KR', sans-serif;
   color: #17243a;
   background: #ffffff;
   font-synthesis: none;
@@ -64,7 +64,7 @@ button {
   place-items: center;
   background: #d7ad58;
   color: #14243e;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: 27px;
   font-weight: 800;
   box-shadow: 3px 3px 0 #a47b35;
@@ -151,7 +151,7 @@ button {
 }
 
 .hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: clamp(52px, 6vw, 78px);
   line-height: 1.1;
   font-weight: 600;
@@ -236,7 +236,7 @@ button {
   color: #192940;
   display: grid;
   place-items: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: 29px;
   font-weight: 800;
   box-shadow: 2px 3px 0 #aa966e;
@@ -260,7 +260,7 @@ button {
 
 .community-section h2,
 .join-section h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: clamp(32px, 4vw, 44px);
   color: #17243a;
   margin: 18px 0;
@@ -309,7 +309,7 @@ button {
 
 .feature-card h3 {
   color: #17243a;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: 22px;
   margin: 12px 0;
 }
@@ -467,7 +467,7 @@ button {
 }
 
 .page-header h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: clamp(40px, 5vw, 60px);
   font-weight: 600;
   letter-spacing: -1px;
@@ -641,7 +641,7 @@ button {
 }
 
 .detail-player-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: clamp(24px, 3vw, 34px);
 }
 
@@ -736,7 +736,7 @@ button {
 }
 
 .tile-letter {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: 4cqw;
   font-weight: 800;
   line-height: 1;
@@ -824,7 +824,7 @@ button {
 }
 
 .moves-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
   font-size: 22px;
   color: #17243a;
   margin: 28px 0 12px;

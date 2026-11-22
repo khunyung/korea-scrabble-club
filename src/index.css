@@ -1,0 +1,11 @@
+/*
+  Global reset only.
+  All Korea Scrabble Club styles live in App.css.
+*/
+#root {
+  width: 100%;
+}
+
+p {
+  margin: 0;
+}

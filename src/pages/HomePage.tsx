@@ -67,9 +67,9 @@ function HomePage({ isEnglish }: HomePageProps) {
             </p>
 
             <div className="hero-actions">
-              <a href="#about" className="button-primary">
+              <Link to="/about" className="button-primary">
                 {content.explore} →
-              </a>
+              </Link>
               <Link to="/games" className="button-secondary">
                 {content.records}
               </Link>
@@ -131,7 +131,7 @@ function HomePage({ isEnglish }: HomePageProps) {
             <h2>{content.joinTitle}</h2>
             <p>{content.footer}</p>
           </div>
-          <a href="mailto:contact@koreascrabbleclub.org" className="button-primary">
+          <a href="mailto:minsueinwkim@gmail.com" className="button-primary">
             {content.contact} →
           </a>
         </section>

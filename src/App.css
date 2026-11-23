@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap');
 
 :root {
@@ -55,19 +54,6 @@ button {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
-}
-
-.brand-tile {
-  width: 43px;
-  height: 43px;
-  display: grid;
-  place-items: center;
-  background: #d7ad58;
-  color: #14243e;
-  font-family: 'Playfair Display', 'Noto Serif KR', serif;
-  font-size: 27px;
-  font-weight: 800;
-  box-shadow: 3px 3px 0 #a47b35;
 }
 
 .brand-name {
@@ -211,48 +197,6 @@ button {
   letter-spacing: 2px;
 }
 
-.hero-board {
-  width: 310px;
-  min-width: 260px;
-  height: 310px;
-  border: 1px solid rgba(215, 173, 88, 0.5);
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(3deg);
-}
-
-.board-decoration {
-  display: flex;
-  gap: 5px;
-}
-
-.scrabble-tile {
-  width: 49px;
-  height: 55px;
-  background: #f1e7d2;
-  color: #192940;
-  display: grid;
-  place-items: center;
-  font-family: 'Playfair Display', 'Noto Serif KR', serif;
-  font-size: 29px;
-  font-weight: 800;
-  box-shadow: 2px 3px 0 #aa966e;
-}
-
-.scrabble-tile.tile-gold {
-  background: #d7ad58;
-}
-
-.board-caption {
-  color: #d7ad58;
-  margin-top: 28px;
-  font-size: 9px;
-  letter-spacing: 3px;
-}
-
 .community-section {
   padding: 100px 10%;
   text-align: center;
@@ -392,13 +336,6 @@ button {
     align-items: flex-start;
   }
 
-  .hero-board {
-    align-self: center;
-    width: 270px;
-    height: 230px;
-    min-width: 0;
-  }
-
   .feature-grid {
     grid-template-columns: 1fr;
   }
@@ -413,6 +350,7 @@ button {
     align-items: flex-start;
   }
 }
+
 /* Hero photo */
 .hero-image {
   width: 420px;
@@ -595,6 +533,7 @@ button {
   letter-spacing: 1px;
   padding: 4px 8px;
 }
+
 /* Archive rows link to the game page */
 .archive-row {
   cursor: pointer;
@@ -1023,13 +962,14 @@ html:lang(ko) .hero-note {
   letter-spacing: 1px;
 }
 
+html:lang(ko) .hero-note {
+  font-size: 11px;
+}
+
 html:lang(ko) .hero h1 {
   letter-spacing: -1px;
 }
 
-html:lang(ko) .hero-note {
-  font-size: 11px;
-}
 /* Players & Records page */
 .stats-title {
   font-family: 'Playfair Display', 'Noto Serif KR', serif;
@@ -1162,6 +1102,7 @@ html:lang(ko) .hero-note {
   color: #a3aab8;
   font-size: 12px;
 }
+
 /* Learn Scrabble page */
 .learn-section {
   min-height: 0;
@@ -1325,6 +1266,7 @@ html:lang(ko) .hero-note {
     max-width: 520px;
   }
 }
+
 /* About Us page */
 .about-story {
   display: grid;
@@ -1440,6 +1382,7 @@ html:lang(ko) .hero-note {
     gap: 36px;
   }
 }
+
 /* Club logo (navbar) */
 .club-logo {
   display: flex;
@@ -1513,6 +1456,7 @@ html:lang(ko) .hero-note {
   display: flex;
   justify-content: center;
 }
+
 /* Homepage: club in numbers */
 .club-numbers {
   display: grid;

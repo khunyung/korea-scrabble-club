@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { en, ko } from '../i18n'
 import { Link, useParams } from 'react-router'
 import ScrabbleBoard, { TILE_VALUES } from '../components/ScrabbleBoard'
 import { games } from '../data/games'
@@ -9,41 +10,21 @@ type GameDetailPageProps = {
 }
 
 function GameDetailPage({ isEnglish }: GameDetailPageProps) {
+  const tx = (isEnglish ? en : ko).game
   const { gameId } = useParams()
   const clubGame = games.find((g) => g.id === gameId)
 
   // How many moves are shown on the board. Starts at the end of the game.
   const [step, setStep] = useState(clubGame ? clubGame.game.events.length : 0)
 
-  const content = {
-    back: isEnglish ? '← All games' : '← 전체 경기',
-    notFound: isEnglish ? 'This game could not be found.' : '경기를 찾을 수 없습니다.',
-    label: isEnglish ? 'FRIENDLY GAME' : '친선 경기',
-    winner: isEnglish ? 'Winner' : '승리',
-    tie: isEnglish ? 'Tie' : '무승부',
-    moves: isEnglish ? 'Moves' : '수순',
-    start: isEnglish ? 'Start of game' : '경기 시작',
-    move: isEnglish ? 'Move' : '수',
-    of: isEnglish ? 'of' : '/',
-    exchange: isEnglish ? 'Exchange' : '교환',
-    pass: isEnglish ? 'Pass' : '패스',
-    withdrawn: isEnglish ? 'Play withdrawn' : '무효 처리',
-    challenge: isEnglish ? 'Challenge bonus' : '챌린지 보너스',
-    endRack: isEnglish ? 'Opponent’s tiles' : '상대 잔여 타일',
-    onTurn: isEnglish ? 'to play' : '차례',
-    gameOver: isEnglish ? 'Game over' : '경기 종료',
-    partialRack: isEnglish
-      ? 'Only the tiles recorded in the game file are shown.'
-      : '기록 파일에 남아 있는 타일만 표시됩니다.',
-  }
 
   if (!clubGame) {
     return (
       <main>
         <section className="page-body">
-          <p className="page-status">{content.notFound}</p>
+          <p className="page-status">{tx.notFound}</p>
           <p className="detail-back">
-            <Link to="/games">{content.back}</Link>
+            <Link to="/games">{tx.back}</Link>
           </p>
         </section>
       </main>
@@ -99,17 +80,17 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
       case 'play':
         return { where: event.position, what: wordWithPlayedThrough(event, index) }
       case 'exchange':
-        return { where: '', what: `${content.exchange} ${event.description.replace('-', '')}` }
+        return { where: '', what: `${tx.exchange} ${event.description.replace('-', '')}` }
       case 'pass':
-        return { where: '', what: content.pass }
+        return { where: '', what: tx.pass }
       case 'withdrawn':
-        return { where: '', what: content.withdrawn }
+        return { where: '', what: tx.withdrawn }
       case 'endRack':
-        return { where: '', what: `${content.endRack} ${event.description}` }
+        return { where: '', what: `${tx.endRack} ${event.description}` }
       default:
         return {
           where: '',
-          what: event.description === '(challenge)' ? content.challenge : event.description,
+          what: event.description === '(challenge)' ? tx.challenge : event.description,
         }
     }
   }
@@ -118,11 +99,11 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
     <main>
       <section className="page-header detail-header">
         <p className="detail-back">
-          <Link to="/games">{content.back}</Link>
+          <Link to="/games">{tx.back}</Link>
         </p>
         <div className="eyebrow">
           <span className="gold-line"></span>
-          {content.label} · {clubGame.id}
+          {tx.label} · {clubGame.id}
         </div>
 
         <div className="detail-scoreline">
@@ -140,7 +121,7 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
 
         <p className="detail-meta">
           {clubGame.date} · {isEnglish ? clubGame.location.en : clubGame.location.ko} ·{' '}
-          {clubGame.lexicon} · {content.winner}: {winner ?? content.tie}
+          {clubGame.lexicon} · {tx.winner}: {winner ?? tx.tie}
         </p>
       </section>
 
@@ -182,7 +163,7 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
             {nextTurn ? (
               <>
                 <p className="rack-owner">
-                  <strong>{nameOf(nextTurn.nickname)}</strong> {content.onTurn}
+                  <strong>{nameOf(nextTurn.nickname)}</strong> {tx.onTurn}
                 </p>
                 <div className="rack">
                   {rackTiles.map((letter, index) => (
@@ -196,17 +177,17 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
                     </div>
                   ))}
                 </div>
-                {rackTiles.length < 7 && <p className="rack-note">{content.partialRack}</p>}
+                {rackTiles.length < 7 && <p className="rack-note">{tx.partialRack}</p>}
               </>
             ) : (
-              <p className="rack-owner">{content.gameOver}</p>
+              <p className="rack-owner">{tx.gameOver}</p>
             )}
           </div>
 
           <p className="replay-status">
             {step === 0
-              ? content.start
-              : `${content.move} ${step} ${content.of} ${events.length}`}
+              ? tx.start
+              : tx.moveStatus(step, events.length)}
           </p>
         </div>
 
@@ -220,7 +201,7 @@ function GameDetailPage({ isEnglish }: GameDetailPageProps) {
             ))}
           </div>
 
-          <h2 className="moves-title">{content.moves}</h2>
+          <h2 className="moves-title">{tx.moves}</h2>
           <ol className="move-list">
             {events.map((event, index) => {
               const { where, what } = describe(event, index)

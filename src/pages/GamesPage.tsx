@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { en, ko } from '../i18n'
 import { Link, useNavigate } from 'react-router'
 import { games } from '../data/games'
 
@@ -7,25 +8,10 @@ type GamesPageProps = {
 }
 
 function GamesPage({ isEnglish }: GamesPageProps) {
+  const tx = (isEnglish ? en : ko).games
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
-  const content = {
-    label: isEnglish ? 'GAME ARCHIVE' : '경기 기록',
-    title: isEnglish ? 'Friendly Games' : '친선 경기',
-    description: isEnglish
-      ? 'Every recorded friendly game played by our members, with the full board and move history.'
-      : '회원들이 둔 친선 경기 기록을 보드와 전체 수순과 함께 확인하세요.',
-    searchPlaceholder: isEnglish ? 'Search by player name' : '플레이어 이름으로 검색',
-    count: (n: number) => (isEnglish ? `${n} game${n === 1 ? '' : 's'}` : `경기 ${n}개`),
-    date: isEnglish ? 'Date' : '날짜',
-    players: isEnglish ? 'Players' : '플레이어',
-    score: isEnglish ? 'Score' : '점수',
-    dictionary: isEnglish ? 'Dictionary' : '사전',
-    location: isEnglish ? 'Location' : '장소',
-    view: isEnglish ? 'View game' : '경기 보기',
-    noResults: isEnglish ? 'No games match your search.' : '검색 결과가 없습니다.',
-  }
 
   const query = search.trim().toLowerCase()
   const shownGames = games.filter((game) =>
@@ -37,10 +23,10 @@ function GamesPage({ isEnglish }: GamesPageProps) {
       <section className="page-header">
         <div className="eyebrow">
           <span className="gold-line"></span>
-          {content.label}
+          {tx.label}
         </div>
-        <h1>{content.title}</h1>
-        <p>{content.description}</p>
+        <h1>{tx.title}</h1>
+        <p>{tx.description}</p>
       </section>
 
       <section className="page-body">
@@ -48,25 +34,25 @@ function GamesPage({ isEnglish }: GamesPageProps) {
           <input
             type="search"
             className="archive-search"
-            placeholder={content.searchPlaceholder}
+            placeholder={tx.searchPlaceholder}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
-          <span className="archive-count">{content.count(shownGames.length)}</span>
+          <span className="archive-count">{tx.count(shownGames.length)}</span>
         </div>
 
         {shownGames.length === 0 ? (
-          <p className="page-status">{content.noResults}</p>
+          <p className="page-status">{tx.noResults}</p>
         ) : (
           <div className="archive-table-wrapper">
             <table className="archive-table">
               <thead>
                 <tr>
-                  <th>{content.date}</th>
-                  <th>{content.players}</th>
-                  <th>{content.score}</th>
-                  <th>{content.dictionary}</th>
-                  <th>{content.location}</th>
+                  <th>{tx.date}</th>
+                  <th>{tx.players}</th>
+                  <th>{tx.score}</th>
+                  <th>{tx.dictionary}</th>
+                  <th>{tx.location}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -96,7 +82,7 @@ function GamesPage({ isEnglish }: GamesPageProps) {
                     </td>
                     <td>{isEnglish ? game.location.en : game.location.ko}</td>
                     <td className="archive-view">
-                      <Link to={`/games/${game.id}`}>{content.view} →</Link>
+                      <Link to={`/games/${game.id}`}>{tx.view} →</Link>
                     </td>
                   </tr>
                 ))}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { en, ko } from './i18n'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
 import ClubLogo from './components/ClubLogo'
 import HomePage from './pages/HomePage'
@@ -31,23 +32,13 @@ function App() {
   const [language, setLanguage] = useState<'EN' | 'KO'>('EN')
 
   const isEnglish = language === 'EN'
+  const tx = (isEnglish ? en : ko).app
 
   // Tell the browser which language the page is in (helps Korean text display and screen readers)
   useEffect(() => {
     document.documentElement.lang = isEnglish ? 'en' : 'ko'
   }, [isEnglish])
 
-  const nav = {
-    home: isEnglish ? 'Home' : '홈',
-    about: isEnglish ? 'About Us' : '클럽 소개',
-    games: isEnglish ? 'Friendly Games' : '친선 경기',
-    tournaments: isEnglish ? 'Tournaments' : '대회',
-    learn: isEnglish ? 'Learn Scrabble' : '스크래블 배우기',
-    members: isEnglish ? 'Members' : '회원',
-    footer: isEnglish
-      ? 'Bringing Scrabble to Korea, one word at a time.'
-      : '한 단어씩, 한국에 스크래블의 즐거움을 전합니다.',
-  }
 
   return (
     <div className="website">
@@ -59,19 +50,19 @@ function App() {
         </Link>
 
         <nav className="nav-links">
-          <NavLink to="/" end>{nav.home}</NavLink>
-          <NavLink to="/about">{nav.about}</NavLink>
-          <NavLink to="/games">{nav.games}</NavLink>
-          <Link to="/#tournaments">{nav.tournaments}</Link>
-          <NavLink to="/learn">{nav.learn}</NavLink>
-          <NavLink to="/players">{nav.members}</NavLink>
+          <NavLink to="/" end>{tx.home}</NavLink>
+          <NavLink to="/about">{tx.about}</NavLink>
+          <NavLink to="/games">{tx.games}</NavLink>
+          <Link to="/#tournaments">{tx.tournaments}</Link>
+          <NavLink to="/learn">{tx.learn}</NavLink>
+          <NavLink to="/players">{tx.members}</NavLink>
         </nav>
 
         <button
           className="language-button"
           onClick={() => setLanguage(isEnglish ? 'KO' : 'EN')}
         >
-          {isEnglish ? '한국어' : 'English'}
+          {tx.languageButton}
         </button>
       </header>
 
@@ -87,7 +78,7 @@ function App() {
 
       <footer className="footer">
         <span>© 2026 Korea Scrabble Club</span>
-        <span>{nav.footer}</span>
+        <span>{tx.footer}</span>
       </footer>
     </div>
   )

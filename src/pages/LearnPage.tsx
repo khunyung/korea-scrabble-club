@@ -183,15 +183,20 @@ function LearnPage({ isEnglish }: LearnPageProps) {
         <p className="learn-intro">{tx.studyIntro}</p>
         <div className="study-grid">
           <article className="study-card">
-            <div className="video-frame">
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/fLd2fhTBsD0"
-                title={tx.videoTitle}
+            <a
+              href="https://www.youtube.com/watch?v=fLd2fhTBsD0"
+              target="_blank"
+              rel="noreferrer"
+              className="video-frame"
+              aria-label={tx.videoTitle}
+            >
+              <img
+                src="https://img.youtube.com/vi/fLd2fhTBsD0/hqdefault.jpg"
+                alt=""
                 loading="lazy"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
+              />
+              <span className="video-play" aria-hidden="true">▶</span>
+            </a>
             <h3>{tx.videoTitle}</h3>
             <p>{tx.videoText}</p>
           </article>

@@ -1551,3 +1551,60 @@ html:lang(ko) .hero h1 {
     max-width: 420px;
   }
 }
+/* Learn page: study materials */
+.study-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.study-card {
+  border: 1px solid #e8e5df;
+  padding: 22px;
+}
+
+.study-card h3 {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 20px;
+  color: #17243a;
+  margin: 16px 0 8px;
+}
+
+.study-card p {
+  color: #788195;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #14243e;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.study-file {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #faf7f0;
+}
+
+.study-file p {
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .study-grid {
+    grid-template-columns: 1fr;
+  }
+}

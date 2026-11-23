@@ -179,6 +179,34 @@ function LearnPage({ isEnglish }: LearnPageProps) {
       </section>
 
       <section className="page-body learn-section">
+        <h2 className="stats-title">{tx.studyTitle}</h2>
+        <p className="learn-intro">{tx.studyIntro}</p>
+        <div className="study-grid">
+          <article className="study-card">
+            <div className="video-frame">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/fLd2fhTBsD0"
+                title={tx.videoTitle}
+                loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <h3>{tx.videoTitle}</h3>
+            <p>{tx.videoText}</p>
+          </article>
+          <article className="study-card study-file">
+            <span className="archive-badge">PDF · CSW24</span>
+            <h3>{tx.pdfTitle}</h3>
+            <p>{tx.pdfText}</p>
+            <a href="/files/csw24-2-3-4-letter-words.pdf" target="_blank" rel="noreferrer" className="button-primary">
+              {tx.pdfButton} ↓
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="page-body learn-section">
         <h2 className="stats-title">{tx.resourcesTitle}</h2>
         <div className="resource-grid">
           {resources.map((resource) => (

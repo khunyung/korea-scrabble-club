@@ -132,6 +132,13 @@ export const en = {
     cswText: 'The word list used in international play and by WESPA. Our club plays CSW.',
     nwlText: 'The word list used in most tournaments in the United States and Canada.',
     resourcesTitle: 'Keep learning',
+    studyTitle: 'Study materials',
+    studyIntro: 'Start here if you are new to competitive play: see how a two-player game works, then learn the short words that come up in almost every game.',
+    videoTitle: 'How to play Scrabble competitively',
+    videoText: 'Learn how a competitive game between two players works.',
+    pdfTitle: 'CSW24 2, 3 and 4-letter words',
+    pdfText: 'Every valid word of two, three and four letters in Collins Scrabble Words 2024, on 8 printable pages. Learning the twos and threes first gives beginners the biggest jump in strength.',
+    pdfButton: 'Open the PDF',
   },
   about: {
     factYear: '2026',

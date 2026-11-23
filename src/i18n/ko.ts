@@ -135,6 +135,13 @@ export const ko: Dictionary = {
     cswText: '국제 대회와 WESPA에서 쓰는 단어 목록입니다. 우리 클럽도 CSW를 사용합니다.',
     nwlText: '미국과 캐나다 대회 대부분에서 쓰는 단어 목록입니다.',
     resourcesTitle: '더 배우기',
+    studyTitle: '학습 자료',
+    studyIntro: '경쟁 스크래블이 처음이라면 여기서 시작하세요. 두 사람이 겨루는 경기 방식을 먼저 보고, 거의 모든 경기에 나오는 짧은 단어부터 익혀 보세요.',
+    videoTitle: '경쟁 스크래블 경기 방법',
+    videoText: '두 플레이어가 겨루는 경쟁 경기가 어떻게 진행되는지 배울 수 있는 영상입니다.',
+    pdfTitle: 'CSW24 2·3·4글자 단어',
+    pdfText: 'Collins Scrabble Words 2024에 있는 2·3·4글자 단어를 모두 담은 8쪽짜리 자료입니다. 입문자는 2·3글자 단어부터 익히는 것이 실력을 가장 빨리 올리는 방법입니다.',
+    pdfButton: 'PDF 열기',
   },
   about: {
     factYear: '2026',

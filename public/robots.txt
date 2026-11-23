@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korea-scrabble-club.minsueinwkim.workers.dev/sitemap.xml

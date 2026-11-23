@@ -1,5 +1,9 @@
 import { Link } from 'react-router'
 import FeatureIcon from '../components/FeatureIcon'
+import ScrabbleBoard from '../components/ScrabbleBoard'
+import { games } from '../data/games'
+import { playerStats, totalGames } from '../data/results'
+import { boardAt } from '../lib/gcg'
 
 type HomePageProps = {
   isEnglish: boolean
@@ -52,6 +56,9 @@ function HomePage({ isEnglish }: HomePageProps) {
       : '한 단어씩, 한국에 스크래블의 즐거움을 전합니다.',
   }
 
+  // Newest archived game (games are already sorted newest first)
+  const latest = games[0]
+
   return (
       <main>
         <section className="hero" id="home">
@@ -92,6 +99,25 @@ function HomePage({ isEnglish }: HomePageProps) {
           </div>
         </section>
 
+        <section className="club-numbers" aria-label={isEnglish ? 'Club in numbers' : '숫자로 보는 클럽'}>
+          <div>
+            <strong>{totalGames}</strong>
+            <span>{isEnglish ? 'Games recorded' : '기록된 경기'}</span>
+          </div>
+          <div>
+            <strong>{playerStats.length}</strong>
+            <span>{isEnglish ? 'Active players' : '활동 중인 플레이어'}</span>
+          </div>
+          <div>
+            <strong>{games.length}</strong>
+            <span>{isEnglish ? 'Games with full replay' : '전체 리플레이 경기'}</span>
+          </div>
+          <div>
+            <strong>2026</strong>
+            <span>{isEnglish ? 'Founded in Daejeon' : '대전에서 창립'}</span>
+          </div>
+        </section>
+
         <section className="community-section" id="about">
           <div className="section-label">{content.community}</div>
           <h2>{content.communityTitle}</h2>
@@ -125,6 +151,42 @@ function HomePage({ isEnglish }: HomePageProps) {
             </article>
           </div>
         </section>
+
+        {latest && (
+          <section className="latest-section">
+            <div className="latest-board">
+              <ScrabbleBoard
+                board={boardAt(latest.game, latest.game.events.length)}
+                highlight={[]}
+              />
+            </div>
+            <div className="latest-info">
+              <div className="section-label">
+                {isEnglish ? 'LATEST FROM THE ARCHIVE' : '최근 경기 기록'}
+              </div>
+              <h2>
+                {latest.results.map((result, index) => (
+                  <span key={result.name}>
+                    {index > 0 && <span className="latest-vs"> vs </span>}
+                    <span className={result.name === latest.winner ? 'latest-winner' : ''}>
+                      {result.name}
+                    </span>
+                  </span>
+                ))}
+              </h2>
+              <p className="latest-score">
+                {latest.results.map((result) => result.score).join(' – ')}
+              </p>
+              <p className="latest-meta">
+                {latest.date} · {isEnglish ? latest.location.en : latest.location.ko} ·{' '}
+                {latest.lexicon}
+              </p>
+              <Link to={`/games/${latest.id}`} className="button-primary">
+                {isEnglish ? 'Watch the replay' : '리플레이 보기'} →
+              </Link>
+            </div>
+          </section>
+        )}
 
         <section className="join-section" id="members">
           <div>

@@ -1513,3 +1513,97 @@ html:lang(ko) .hero-note {
   display: flex;
   justify-content: center;
 }
+/* Homepage: club in numbers */
+.club-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #101d32;
+  border-top: 1px solid rgba(215, 173, 88, 0.25);
+}
+
+.club-numbers div {
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.club-numbers div + div {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.club-numbers strong {
+  display: block;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 36px;
+  color: #d7ad58;
+  line-height: 1.1;
+}
+
+.club-numbers span {
+  color: #aab3c2;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Homepage: latest game */
+.latest-section {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) 1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 90px 10%;
+  border-top: 1px solid #ece9e2;
+}
+
+.latest-info h2 {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: clamp(26px, 3vw, 36px);
+  color: #17243a;
+  margin: 16px 0 10px;
+  font-weight: 600;
+}
+
+.latest-vs {
+  color: #a3aab8;
+  font-size: 0.7em;
+}
+
+.latest-winner {
+  font-weight: 800;
+}
+
+.latest-score {
+  font-size: 30px;
+  font-weight: 800;
+  color: #b48a43;
+  margin-bottom: 8px;
+}
+
+.latest-meta {
+  color: #788195;
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 860px) {
+  .club-numbers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .club-numbers div:nth-child(3) {
+    border-left: none;
+  }
+
+  .club-numbers div:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .latest-section {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 70px 7%;
+  }
+
+  .latest-board {
+    max-width: 420px;
+  }
+}

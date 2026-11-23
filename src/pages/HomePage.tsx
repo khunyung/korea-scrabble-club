@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import FeatureIcon from '../components/FeatureIcon'
 
 type HomePageProps = {
   isEnglish: boolean
@@ -42,7 +43,7 @@ function HomePage({ isEnglish }: HomePageProps) {
       ? 'ESTABLISHED TO CONNECT SCRABBLE PLAYERS IN KOREA'
       : '한국의 스크래블 플레이어를 잇기 위해 시작되었습니다',
     exploreGames: isEnglish ? 'Explore games' : '경기 둘러보기',
-    discoverTournaments: isEnglish ? 'Discover tournaments' : '대회 알아보기',
+    comingSoon: isEnglish ? 'Tournament page coming soon' : '대회 페이지 준비 중',
     startLearning: isEnglish ? 'Start learning' : '배우기 시작하기',
     joinTitle: isEnglish ? 'Every word has a place.' : '모든 단어에는 자리가 있습니다.',
     contact: isEnglish ? 'Get in Touch' : '문의하기',
@@ -101,7 +102,7 @@ function HomePage({ isEnglish }: HomePageProps) {
           <div className="feature-grid">
             <article className="feature-card" id="games">
               <div className="feature-number">01</div>
-              <div className="feature-icon">▦</div>
+              <div className="feature-icon"><FeatureIcon name="board" /></div>
               <h3>{content.feature1}</h3>
               <p>{content.feature1desc}</p>
               <Link to="/games">{content.exploreGames} →</Link>
@@ -109,15 +110,15 @@ function HomePage({ isEnglish }: HomePageProps) {
 
             <article className="feature-card" id="tournaments">
               <div className="feature-number">02</div>
-              <div className="feature-icon">♛</div>
+              <div className="feature-icon"><FeatureIcon name="trophy" /></div>
               <h3>{content.feature2}</h3>
               <p>{content.feature2desc}</p>
-              <a href="#tournaments">{content.discoverTournaments} →</a>
+              <span className="coming-soon">{content.comingSoon}</span>
             </article>
 
             <article className="feature-card" id="learn">
               <div className="feature-number">03</div>
-              <div className="feature-icon">✎</div>
+              <div className="feature-icon"><FeatureIcon name="learn" /></div>
               <h3>{content.feature3}</h3>
               <p>{content.feature3desc}</p>
               <Link to="/learn">{content.startLearning} →</Link>

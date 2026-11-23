@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
+import ClubLogo from './components/ClubLogo'
 import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
 import GameDetailPage from './pages/GameDetailPage'
@@ -53,12 +54,8 @@ function App() {
       <ScrollManager />
 
       <header className="navbar">
-        <Link to="/" className="brand">
-          <div className="brand-tile">K</div>
-          <div className="brand-name">
-            <strong>KOREA SCRABBLE</strong>
-            <span>CLUB</span>
-          </div>
+        <Link to="/" className="brand" aria-label="Korea Scrabble Club home">
+          <ClubLogo />
         </Link>
 
         <nav className="nav-links">

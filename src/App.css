@@ -1440,3 +1440,76 @@ html:lang(ko) .hero-note {
     gap: 36px;
   }
 }
+/* Club logo (navbar) */
+.club-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-tiles {
+  display: flex;
+  gap: 3px;
+}
+
+.logo-tile {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #f1e7d2;
+  color: #14243e;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 21px;
+  font-weight: 800;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 #c9b993;
+}
+
+.logo-tile-gold {
+  background: #d7ad58;
+  box-shadow: 2px 2px 0 #a47b35;
+}
+
+.logo-tile small {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .club-logo .brand-name {
+    display: none;
+  }
+}
+
+/* Homepage card icons */
+.feature-svg {
+  width: 46px;
+  height: 46px;
+  display: block;
+}
+
+.coming-soon {
+  display: inline-block;
+  color: #a3aab8;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px dashed #d8c59f;
+  padding: 4px 8px;
+}
+
+/* Club seal on the About page */
+.about-side {
+  display: grid;
+  gap: 30px;
+}
+
+.about-seal {
+  display: flex;
+  justify-content: center;
+}

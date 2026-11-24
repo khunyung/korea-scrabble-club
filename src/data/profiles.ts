@@ -11,10 +11,10 @@ export type TournamentResult = {
   name: string
   division: string
   record: string // wins-losses as the source shows it
-  spread: number
+  spread?: number // leave out if the source shows none
   place: number
   field?: number // number of players in the division, if known
-  lexicon?: 'NWL' | 'CSW' // for NASPA events, which word list (and rating) it counted for
+  lexicon?: 'NWL' | 'CSW' | 'WOW' // for NASPA events, which word list (and rating) it counted for
   endRating?: number // leave out for unrated events
   change?: number
   games?: TournamentGame[] // round by round; leave out if unknown
@@ -37,7 +37,7 @@ export type PlayerProfile = {
   ratingUrl?: string
   asOf: string
   // One entry per rating. careerHigh is worked out from the tournaments if left out.
-  ratings: { label: string; current: number; careerHigh?: number; lexicon?: 'NWL' | 'CSW' }[]
+  ratings: { label: string; current: number; careerHigh?: number; lexicon?: 'NWL' | 'CSW' | 'WOW' }[]
   stats: {
     games: number
     wins: number
@@ -363,6 +363,7 @@ export const profiles: PlayerProfile[] = [
     name: 'Emanuel Chicoine',
     hometown: { en: 'Montreal, QC, Canada', ko: '캐나다 퀘벡주 몬트리올' },
     ratingSource: 'NASPA',
+    ratingUrl: 'https://www.cross-tables.com/results.php?p=2289',
     asOf: '2026-11-24',
     ratings: [
       { label: 'NWL', current: 1745, lexicon: 'NWL' },
@@ -496,6 +497,74 @@ export const profiles: PlayerProfile[] = [
       { date: '2001-07-05', name: 'Albany NY', division: '3', record: '13-7', spread: 730, place: 3, field: 27, lexicon: 'NWL', endRating: 1210, change: 48 },
       { date: '2001-05-26', name: 'Montreal QC', division: '5', record: '8-4', spread: 773, place: 2, field: 12, lexicon: 'NWL', endRating: 1162, change: 111 },
       { date: '2000-09-23', name: 'Toronto ON', division: '4', record: '8-4', spread: 337, place: 3, field: 28, lexicon: 'NWL', endRating: 1051 },
+    ],
+  },
+  {
+    slug: 'jeremy-goard',
+    name: 'Jeremy J. Goard',
+    hometown: { en: 'Foresthill, CA, USA', ko: '미국 캘리포니아주 포레스트힐' },
+    ratingSource: 'NASPA',
+    ratingUrl: 'https://www.cross-tables.com/results.php?playerid=3018',
+    asOf: '2026-11-24',
+    ratings: [
+      { label: 'NWL', current: 1710, lexicon: 'NWL' },
+      { label: 'WOW', current: 1727, lexicon: 'WOW' },
+    ],
+    stats: {
+      // Lifetime record on cross-tables (Clabbers events are not included there)
+      games: 588,
+      wins: 320,
+      losses: 261,
+      draws: 7,
+      averageFor: 404,
+      averageAgainst: 394,
+    },
+    links: [],
+    photos: [],
+    tournaments: [
+      { date: '2014-12-14', name: 'West Linn, OR', division: '1', record: '5-1', spread: 546, place: 1, field: 8, lexicon: 'WOW', endRating: 1727, change: 17 },
+      { date: '2007-01-13', name: 'Reno NV Main Event', division: '1', record: '7-12', spread: -539, place: 36, field: 44, lexicon: 'NWL', endRating: 1710, change: -81 },
+      { date: '2005-08-20', name: '16th National Championship', division: '1', record: '12-15', spread: -328, place: 61, field: 87, lexicon: 'NWL', endRating: 1791, change: 2 },
+      { date: '2005-06-26', name: 'Los Gatos CA', division: '1', record: '3-3', spread: 159, place: 3, field: 8, lexicon: 'NWL', endRating: 1789, change: -21 },
+      { date: '2004-01-17', name: 'Reno NV Main Event', division: '1', record: '10-9', spread: -72, place: 20, field: 44, lexicon: 'NWL', endRating: 1810, change: -8 },
+      { date: '2003-07-02', name: 'Reno NV Early Bird 2', division: '1', record: '3-5', spread: -222, place: 6, field: 8, lexicon: 'NWL', endRating: 1818, change: -12 },
+      { date: '2003-07-01', name: 'Reno NV Early Bird 1', division: '1', record: '8-2', spread: 577, place: 5, field: 84, lexicon: 'NWL', endRating: 1830, change: -5 },
+      { date: '2002-12-28', name: 'Campbell CA', division: '1', record: '7-5-2', spread: 19, place: 6, field: 16, lexicon: 'NWL', endRating: 1835, change: -24 },
+      { date: '2002-08-18', name: '14th National Championship', division: '1', record: '16-15', spread: 731, place: 54, field: 132, lexicon: 'NWL', endRating: 1859, change: -29 },
+      { date: '2002-07-04', name: 'Reno NV Clabbers', division: '1', record: '3-3', spread: -261, place: 5, field: 8 },
+      { date: '2002-07-04', name: 'Reno NV Main Event', division: '1', record: '15-11-1', spread: 265, place: 8, field: 40, lexicon: 'NWL', endRating: 1888, change: -6 },
+      { date: '2002-05-25', name: 'Campbell CA', division: '1', record: '16-3', spread: 1138, place: 1, field: 22, lexicon: 'NWL', endRating: 1894, change: 99 },
+      { date: '2002-04-07', name: 'Oakland CA', division: '1', record: '5-1', spread: 824, place: 1, field: 7, lexicon: 'NWL', endRating: 1795, change: 24 },
+      { date: '2002-03-03', name: 'Oakland CA', division: '1', record: '2-3-1', spread: -37, place: 5, field: 6, lexicon: 'NWL', endRating: 1771, change: -1 },
+      { date: '2002-02-16', name: 'Phoenix AZ', division: '1', record: '7-10-1', spread: 15, place: 10, field: 16, lexicon: 'NWL', endRating: 1772, change: 23 },
+      { date: '2002-01-19', name: 'Reno NV Main Event', division: '1', record: '8-11', spread: -412, place: 29, field: 38, lexicon: 'NWL', endRating: 1749, change: -24 },
+      { date: '2001-10-07', name: 'Oakland CA', division: '1', record: '4-2', spread: 192, place: 3, field: 6, lexicon: 'NWL', endRating: 1773, change: 33 },
+      { date: '2001-07-05', name: 'Reno NV Main Event', division: '2', record: '18-8-1', spread: 1424, place: 5, field: 68, lexicon: 'NWL', endRating: 1740, change: 24 },
+      { date: '2001-07-04', name: 'Reno NV Clabbers', division: '1', record: '3-3', spread: 418, place: 3, field: 6 },
+      { date: '2000-07-11', name: 'Reno NV Early Bird 2', division: '1', record: '6-10', spread: 52, place: 23, field: 30, lexicon: 'NWL', endRating: 1716, change: -62 },
+      { date: '1998-10-24', name: 'Pittsburgh PA', division: '1', record: '5-8', spread: -386, place: 13, field: 18, lexicon: 'NWL', endRating: 1778, change: -45 },
+      { date: '1998-08-09', name: '12th National Championship', division: '1', record: '15-16', spread: 43, place: 71, field: 126, lexicon: 'NWL', endRating: 1823, change: 19 },
+      { date: '1998-07-09', name: 'Reno NV Main Event', division: '1', record: '12-10', spread: 50, place: 19, field: 49, lexicon: 'NWL', endRating: 1804, change: 66 },
+      { date: '1998-07-07', name: 'Reno NV Early Bird', division: '1', record: '8-8', spread: -374, place: 17, field: 30, lexicon: 'NWL', endRating: 1738, change: 25 },
+      { date: '1998-05-23', name: 'Los Gatos CA', division: '2', record: '15-3', spread: 1138, place: 2, field: 26, lexicon: 'NWL', endRating: 1713, change: 65 },
+      { date: '1997-05-24', name: 'Los Gatos CA', division: '1', record: '4-14', spread: -999, place: 23, field: 24, lexicon: 'NWL', endRating: 1648, change: -71 },
+      { date: '1997-01-18', name: 'Reno NV', division: '1', record: '7-10', spread: -275, place: 25, field: 32, lexicon: 'NWL', endRating: 1719, change: 18 },
+      { date: '1996-12-06', name: 'Las Vegas NV', division: '1', record: '1-2', spread: 60, place: 36, field: 38, lexicon: 'NWL', endRating: 1701, change: -4 },
+      { date: '1996-08-31', name: 'Portland OR', division: '1', record: '6-7', spread: -231, place: 15, field: 24, lexicon: 'NWL', endRating: 1705, change: 36 },
+      { date: '1996-08-08', name: 'Reno NV', division: '2', record: '16-9', spread: 923, place: 4, field: 32, lexicon: 'NWL', endRating: 1669, change: 47 },
+      { date: '1996-07-14', name: 'Oakland CA', division: '2', record: '4-2', spread: 131, place: 3, field: 6, lexicon: 'NWL', endRating: 1622, change: 33 },
+      { date: '1996-06-30', name: 'Mill Valley CA', division: '2', record: '4-2', spread: 207, place: 2, field: 6, lexicon: 'NWL', endRating: 1589, change: 14 },
+      { date: '1996-05-25', name: 'Santa Clara CA', division: '2', record: '12-7', spread: 438, place: 4, field: 24, lexicon: 'NWL', endRating: 1575, change: 88 },
+      { date: '1996-05-19', name: 'Oakland CA', division: '3', record: '4-1-1', spread: 198, place: 2, field: 8, lexicon: 'NWL', endRating: 1487, change: 28 },
+      { date: '1996-04-21', name: 'Oakland CA', division: '3', record: '3-3', place: 4, field: 6, lexicon: 'NWL', endRating: 1459, change: 2 },
+      { date: '1996-03-10', name: 'Oakland CA', division: '3', record: '4-2', spread: 269, place: 2, field: 8, lexicon: 'NWL', endRating: 1457, change: 19 },
+      { date: '1996-02-17', name: 'Santa Clara CA', division: '2', record: '11-8', spread: 357, place: 5, field: 16, lexicon: 'NWL', endRating: 1438, change: 172 },
+      { date: '1996-02-11', name: 'Oakland CA', division: '4', record: '5-1', spread: 444, place: 1, field: 8, lexicon: 'NWL', endRating: 1266, change: 23 },
+      { date: '1996-01-12', name: 'Reno NV', division: '3', record: '12-8', spread: -14, place: 7, field: 24, lexicon: 'NWL', endRating: 1243, change: 94 },
+      { date: '1995-12-10', name: 'Oakland CA', division: '4', record: '3-3', place: 5, field: 6, lexicon: 'NWL', endRating: 1149, change: -26 },
+      { date: '1995-11-12', name: 'Oakland CA', division: '5', record: '4-2', spread: 299, place: 3, field: 8, lexicon: 'NWL', endRating: 1175, change: -5 },
+      { date: '1995-10-21', name: 'Santa Clara CA', division: '3', record: '9-7', spread: 214, place: 5, field: 16, lexicon: 'NWL', endRating: 1180, change: 111 },
+      { date: '1995-08-13', name: 'Oakland CA', division: '4', record: '4-2', spread: 156, place: 3, field: 8, lexicon: 'NWL', endRating: 1069 },
     ],
   },
 ]

@@ -48,7 +48,9 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
     points: r.lexicon ? rated.filter((t) => t.lexicon === r.lexicon) : rated,
   }))
   const s = profile.stats
-  const winRate = Math.round((s.wins / s.games) * 1000) / 10 // same method as WESPA: wins ÷ games
+  // Same method as each source: WESPA counts wins ÷ games, NASPA counts a tie as half a win
+  const winsCounted = profile.ratingSource === 'NASPA' ? s.wins + s.draws / 2 : s.wins
+  const winRate = Math.round((winsCounted / s.games) * 1000) / 10
 
   return (
     <main>
@@ -149,7 +151,7 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
           </div>
           <div>
             <dt>{tx.winRate}</dt>
-            <dd>{winRate}%</dd>
+            <dd>{winRate.toFixed(1)}%</dd>
           </div>
           <div>
             <dt>{tx.averageFor}</dt>
@@ -214,8 +216,8 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
                         )}
                       </td>
                       <td>{recordOf(t)}</td>
-                      <td className={t.spread >= 0 ? 'value-up' : 'value-down'}>
-                        {t.spread > 0 ? `+${t.spread}` : t.spread}
+                      <td className={t.spread === undefined ? '' : t.spread >= 0 ? 'value-up' : 'value-down'}>
+                        {t.spread === undefined ? '–' : t.spread > 0 ? `+${t.spread}` : t.spread}
                       </td>
                       <td>{t.field ? `${t.place} / ${t.field}` : t.place}</td>
                       <td className="archive-score">

@@ -201,6 +201,14 @@ export const en = {
     division: 'Div.',
     photos: 'Photos',
     viewProfile: 'View profile',
+    showGames: (n: number) => `Show ${n} games`,
+    hideGames: 'Hide games',
+    round: 'Rd',
+    opponent: 'Opponent',
+    opponentRating: 'Opp. rating',
+    result: 'Result',
+    score: 'Score',
+    resultLetter: { W: 'W', L: 'L', D: 'D' },
   },
 }
 

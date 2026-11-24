@@ -204,5 +204,13 @@ export const ko: Dictionary = {
     division: '디비전',
     photos: '사진',
     viewProfile: '프로필 보기',
+    showGames: (n: number) => `${n}경기 보기`,
+    hideGames: '경기 숨기기',
+    round: '라운드',
+    opponent: '상대',
+    opponentRating: '상대 레이팅',
+    result: '결과',
+    score: '점수',
+    resultLetter: { W: '승', L: '패', D: '무' },
   },
 }

@@ -1,6 +1,7 @@
+import { Fragment, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import RatingChart from '../components/RatingChart'
-import { careerHigh, findProfile } from '../data/profiles'
+import { careerHigh, findProfile, type TournamentResult } from '../data/profiles'
 import { en, ko } from '../i18n'
 
 type ProfilePageProps = {
@@ -11,6 +12,16 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
   const tx = (isEnglish ? en : ko).profile
   const { slug } = useParams()
   const profile = findProfile(slug)
+  const [openTournament, setOpenTournament] = useState<string | null>(null)
+
+  // W-L(-D) worked out from the games when they are known
+  const recordOf = (t: TournamentResult) => {
+    if (!t.games) return t.record
+    const wins = t.games.filter((g) => g.score > g.opponentScore).length
+    const losses = t.games.filter((g) => g.score < g.opponentScore).length
+    const draws = t.games.length - wins - losses
+    return draws > 0 ? `${wins}-${losses}-${draws}` : `${wins}-${losses}`
+  }
 
   if (!profile) {
     return (
@@ -152,26 +163,77 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
               </tr>
             </thead>
             <tbody>
-              {profile.tournaments.map((t) => (
-                <tr key={t.date + t.name}>
-                  <td className="archive-date">{t.date}</td>
-                  <td>
-                    {t.name}
-                    <span className="profile-division"> · {tx.division} {t.division}</span>
-                  </td>
-                  <td>{t.record}</td>
-                  <td className={t.spread >= 0 ? 'value-up' : 'value-down'}>
-                    {t.spread > 0 ? `+${t.spread}` : t.spread}
-                  </td>
-                  <td>{t.place}</td>
-                  <td className="archive-score">
-                    {t.endRating}{' '}
-                    <span className={t.change >= 0 ? 'value-up' : 'value-down'}>
-                      ({t.change > 0 ? `+${t.change}` : t.change})
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {profile.tournaments.map((t) => {
+                const key = t.date + t.name
+                const isOpen = openTournament === key
+                return (
+                  <Fragment key={key}>
+                    <tr>
+                      <td className="archive-date">{t.date}</td>
+                      <td>
+                        {t.name}
+                        <span className="profile-division"> · {tx.division} {t.division}</span>
+                        {t.games && (
+                          <button
+                            type="button"
+                            className="games-toggle"
+                            aria-expanded={isOpen}
+                            onClick={() => setOpenTournament(isOpen ? null : key)}
+                          >
+                            {isOpen ? tx.hideGames : tx.showGames(t.games.length)}
+                          </button>
+                        )}
+                      </td>
+                      <td>{recordOf(t)}</td>
+                      <td className={t.spread >= 0 ? 'value-up' : 'value-down'}>
+                        {t.spread > 0 ? `+${t.spread}` : t.spread}
+                      </td>
+                      <td>{t.place}</td>
+                      <td className="archive-score">
+                        {t.endRating}{' '}
+                        <span className={t.change >= 0 ? 'value-up' : 'value-down'}>
+                          ({t.change > 0 ? `+${t.change}` : t.change})
+                        </span>
+                      </td>
+                    </tr>
+                    {isOpen && t.games && (
+                      <tr className="games-row">
+                        <td colSpan={6}>
+                          <table className="games-table">
+                            <thead>
+                              <tr>
+                                <th>{tx.round}</th>
+                                <th>{tx.opponent}</th>
+                                <th>{tx.opponentRating}</th>
+                                <th>{tx.result}</th>
+                                <th>{tx.score}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {t.games.map((g) => {
+                                const result = g.score > g.opponentScore ? 'W' : g.score < g.opponentScore ? 'L' : 'D'
+                                return (
+                                  <tr key={g.round}>
+                                    <td>{g.round}</td>
+                                    <td>{g.opponent}</td>
+                                    <td>{g.opponentRating}</td>
+                                    <td>
+                                      <span className={`result-badge result-${result}`}>{tx.resultLetter[result]}</span>
+                                    </td>
+                                    <td className="archive-score">
+                                      {g.score} – {g.opponentScore}
+                                    </td>
+                                  </tr>
+                                )
+                              })}
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                )
+              })}
             </tbody>
           </table>
         </div>

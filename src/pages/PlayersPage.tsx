@@ -1,5 +1,7 @@
 import { pairingStats, playerStats, totalGames } from '../data/results'
 import { en, ko } from '../i18n'
+import { Link } from 'react-router'
+import { profileForName } from '../data/profiles'
 
 type PlayersPageProps = {
   isEnglish: boolean
@@ -28,6 +30,11 @@ function PlayersPage({ isEnglish }: PlayersPageProps) {
           {playerStats.map((player) => (
             <article key={player.name} className="player-card">
               <h3>{player.name}</h3>
+              {profileForName(player.name) && (
+                <Link to={`/players/${profileForName(player.name)!.slug}`} className="player-profile-link">
+                  {(isEnglish ? en : ko).profile.viewProfile} →
+                </Link>
+              )}
               <div className="player-winrate">
                 {percent(player.wins, player.games)}
                 <span>{tx.winRate}</span>

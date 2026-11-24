@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'
 import GameDetailPage from './pages/GameDetailPage'
 import PlayersPage from './pages/PlayersPage'
+import ProfilePage from './pages/ProfilePage'
 import LearnPage from './pages/LearnPage'
 import AboutPage from './pages/AboutPage'
 import './App.css'
@@ -71,6 +72,7 @@ function App() {
         <Route path="/games" element={<GamesPage isEnglish={isEnglish} />} />
         <Route path="/games/:gameId" element={<GameDetailPage isEnglish={isEnglish} />} />
         <Route path="/players" element={<PlayersPage isEnglish={isEnglish} />} />
+        <Route path="/players/:slug" element={<ProfilePage isEnglish={isEnglish} />} />
         <Route path="/learn" element={<LearnPage isEnglish={isEnglish} />} />
         <Route path="/about" element={<AboutPage isEnglish={isEnglish} />} />
         <Route path="*" element={<HomePage isEnglish={isEnglish} />} />

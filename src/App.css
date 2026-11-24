@@ -1644,3 +1644,203 @@ html:lang(ko) .hero h1 {
   place-items: center;
   padding-left: 4px;
 }
+/* Player profile page */
+.player-profile-link {
+  display: inline-block;
+  color: #a77e39;
+  font-size: 12px;
+  font-weight: 700;
+  margin: -6px 0 16px;
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 50px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.profile-portrait {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 30%;
+  border: 5px solid rgba(215, 173, 88, 0.7);
+  box-shadow: 15px 15px 0 rgba(215, 173, 88, 0.15);
+}
+
+.profile-ratings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 44px;
+  margin: 26px 0 12px;
+}
+
+.profile-ratings strong {
+  display: block;
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 44px;
+  color: #d7ad58;
+  line-height: 1;
+}
+
+.profile-ratings span {
+  color: #aab3c2;
+  font-size: 12px;
+}
+
+.page-header .profile-asof {
+  font-size: 12px;
+  color: #8f9bb0;
+  max-width: none;
+}
+
+.profile-asof a {
+  color: #d7ad58;
+}
+
+.profile-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr);
+  gap: 56px;
+  align-items: start;
+  min-height: 0;
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.profile-link.button-secondary {
+  color: #14243e;
+  border-color: #d8c59f;
+}
+
+.profile-link.button-secondary:hover {
+  background: #14243e;
+  color: #ffffff;
+}
+
+.favorite-word {
+  background: #14243e;
+  color: #ffffff;
+  padding: 28px;
+}
+
+.favorite-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 18px 0 16px;
+}
+
+.favorite-tiles .logo-tile {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  background: #d7ad58;
+  box-shadow: 2px 2px 0 #a47b35;
+}
+
+.favorite-word p {
+  color: #c5ccda;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1px;
+  background: #e8e5df;
+  border: 1px solid #e8e5df;
+  margin: 0 0 40px;
+}
+
+.profile-stats div {
+  background: #ffffff;
+  padding: 20px;
+}
+
+.profile-stats dt {
+  color: #788195;
+  font-size: 12px;
+}
+
+.profile-stats dd {
+  margin: 4px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #14243e;
+}
+
+.profile-subtitle {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 20px;
+  color: #17243a;
+  margin: 0 0 14px;
+}
+
+.rating-chart-wrap {
+  background: #ffffff;
+  border: 1px solid #e8e5df;
+  padding: 16px;
+}
+
+.rating-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.profile-division {
+  color: #a3aab8;
+  font-size: 12px;
+}
+
+.value-up {
+  color: #3f7a4a;
+}
+
+.value-down {
+  color: #a3452f;
+}
+
+.photo-grid {
+  columns: 3 260px;
+  column-gap: 16px;
+}
+
+.photo-grid figure {
+  margin: 0 0 16px;
+  break-inside: avoid;
+  background: #ffffff;
+  border: 1px solid #e8e5df;
+}
+
+.photo-grid img {
+  width: 100%;
+  display: block;
+}
+
+.photo-grid figcaption {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #788195;
+}
+
+@media (max-width: 860px) {
+  .profile-header,
+  .profile-intro {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .profile-portrait {
+    max-width: 260px;
+  }
+}

@@ -26,6 +26,7 @@ function PlayersPage({ isEnglish }: PlayersPageProps) {
 
       <section className="page-body">
         <h2 className="stats-title">{tx.players}</h2>
+                <p className="learn-intro">{tx.playersNote}</p>
         <div className="player-grid">
           {playerStats.map((player) => (
             <article key={player.name} className="player-card">

@@ -1,7 +1,7 @@
 import { pairingStats, playerStats, totalGames } from '../data/results'
 import { en, ko } from '../i18n'
 import { Link } from 'react-router'
-import { profileForName } from '../data/profiles'
+import { cardPhotoFor, profileForName } from '../data/profiles'
 
 type PlayersPageProps = {
   isEnglish: boolean
@@ -29,12 +29,23 @@ function PlayersPage({ isEnglish }: PlayersPageProps) {
         <div className="player-grid">
           {playerStats.map((player) => (
             <article key={player.name} className="player-card">
-              <h3>{player.name}</h3>
-              {profileForName(player.name) && (
-                <Link to={`/players/${profileForName(player.name)!.slug}`} className="player-profile-link">
-                  {(isEnglish ? en : ko).profile.viewProfile} →
-                </Link>
-              )}
+              <div className="player-card-head">
+                {cardPhotoFor(player.name) ? (
+                  <img className="player-avatar" src={cardPhotoFor(player.name)} alt={player.name} />
+                ) : (
+                  <span className="player-avatar player-avatar-initial" aria-hidden="true">
+                    {player.name.charAt(0)}
+                  </span>
+                )}
+                <div>
+                  <h3>{player.name}</h3>
+                  {profileForName(player.name) && (
+                    <Link to={`/players/${profileForName(player.name)!.slug}`} className="player-profile-link">
+                      {(isEnglish ? en : ko).profile.viewProfile} →
+                    </Link>
+                  )}
+                </div>
+              </div>
               <div className="player-winrate">
                 {percent(player.wins, player.games)}
                 <span>{tx.winRate}</span>

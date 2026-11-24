@@ -49,6 +49,7 @@ export type PlayerProfile = {
   bio: { en: string[]; ko: string[] }
   links: { label: string; url: string }[]
   portrait: string
+  avatar?: string // small square face photo for the Members cards
   photos: { src: string; caption?: { en: string; ko: string } }[]
   tournaments: TournamentResult[] // newest first
 }
@@ -96,6 +97,7 @@ export const profiles: PlayerProfile[] = [
       { label: 'Woogles', url: 'https://woogles.io/profile/khunyung2377' },
     ],
     portrait: '/images/players/minsue-kim/portrait.jpg',
+    avatar: '/images/players/minsue-kim/avatar.jpg',
     photos: [
       {
         src: '/images/players/minsue-kim/causeway-2026.jpg',
@@ -356,6 +358,16 @@ export const profiles: PlayerProfile[] = [
     ],
   },
 ]
+
+// Photos for the Members cards of players who don't have a full profile yet.
+// Put a square photo in public/images/players/ and add a line, e.g.
+// 'Emanuel Chicoine': '/images/players/emanuel-chicoine.jpg',
+export const cardPhotos: Record<string, string> = {}
+
+export const cardPhotoFor = (name: string) => {
+  const profile = profileForName(name)
+  return profile?.avatar ?? profile?.portrait ?? cardPhotos[name]
+}
 
 export const findProfile = (slug: string | undefined) => profiles.find((p) => p.slug === slug)
 

@@ -85,12 +85,12 @@ export const profiles: PlayerProfile[] = [
       en: [
         'Minsue grew up in Thailand from the age of three, and started playing Scrabble competitively as a student at eleven. In Thailand, Scrabble is treated as a competitive sport, and strong players can even earn scholarships to university.',
         'He returned to Korea for college and took a four-year break from the game before coming back to competitive tournaments.',
-        'In the summer of 2026 he found out that another competitive player, Emanuel Chicoine, was in Korea, and decided to start a Scrabble community here. That became the Korea Scrabble Club.',
+        'In the summer of 2026 he found out that two other competitive players, Emanuel Chicoine and Jeremy J. Goard, were in Korea, and together they created the Korea Scrabble Club.',
       ],
       ko: [
         '세 살 때부터 태국에서 자랐고, 열한 살에 학생 신분으로 경쟁 스크래블을 시작했어요. 태국에서는 스크래블이 하나의 스포츠로 여겨져서, 실력이 좋으면 대학 입학 장학금까지 받을 수 있어요.',
         '대학 진학을 위해 한국으로 돌아온 뒤 4년 동안 스크래블을 쉬었다가, 다시 대회에 나가기 시작했어요.',
-        '2026년 여름, 한국에 또 다른 경쟁 플레이어인 Emanuel Chicoine이 있다는 걸 알게 되면서 한국에 스크래블 커뮤니티를 만들기로 했어요. 그게 지금의 한국 스크래블 클럽이에요.',
+        '2026년 여름, 한국에 대회 경험이 있는 플레이어 Emanuel Chicoine과 Jeremy J. Goard가 있다는 걸 알게 되었고, 세 사람이 함께 한국 스크래블 클럽을 만들었어요.',
       ],
     },
     links: [

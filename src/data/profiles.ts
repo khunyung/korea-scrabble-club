@@ -1,8 +1,8 @@
 // Player profiles.
 //
-// Ratings are a snapshot from the player's WESPA page (via xerafin) on `asOf`.
-// After a tournament, update `rating`, add the event at the TOP of `tournaments`,
-// and change `asOf`. Career high and the chart are worked out automatically.
+// Ratings are a snapshot from the player's WESPA page (xerafin) or NASPA page
+// (cross-tables) on `asOf`. After a tournament, update `ratings`, add the event at
+// the TOP of `tournaments`, and change `asOf`.
 //
 // Photos live in public/images/players/<slug>/
 
@@ -10,18 +10,20 @@ export type TournamentResult = {
   date: string // YYYY-MM-DD
   name: string
   division: string
-  record: string // wins-losses or wins-losses-byes, as WESPA shows it
+  record: string // wins-losses as the source shows it
   spread: number
   place: number
-  endRating: number
-  change: number
+  field?: number // number of players in the division, if known
+  lexicon?: 'NWL' | 'CSW' // for NASPA events, which word list (and rating) it counted for
+  endRating?: number // leave out for unrated events
+  change?: number
   games?: TournamentGame[] // round by round; leave out if unknown
 }
 
 export type TournamentGame = {
   round: number
   opponent: string
-  opponentRating: number
+  opponentRating?: number // leave out if unrated
   score: number
   opponentScore: number
 }
@@ -30,12 +32,12 @@ export type PlayerProfile = {
   slug: string // used in the address: /players/<slug>
   name: string // must match the name used in results.ts
   nameKo?: string // shown on the Korean version
+  hometown?: { en: string; ko: string }
   ratingSource: 'WESPA' | 'NASPA'
-  ratingId: number
-  ratingUrl: string
+  ratingUrl?: string
   asOf: string
-  rating: number
-  ranking?: { world?: number; country?: number } // leave out until known
+  // One entry per rating. careerHigh is worked out from the tournaments if left out.
+  ratings: { label: string; current: number; careerHigh?: number; lexicon?: 'NWL' | 'CSW' }[]
   stats: {
     games: number
     wins: number
@@ -43,12 +45,12 @@ export type PlayerProfile = {
     draws: number
     averageFor: number
     averageAgainst: number
-    highGame: number
+    highGame?: number
   }
-  favoriteWord: { word: string; meaning: { en: string; ko: string } }
-  bio: { en: string[]; ko: string[] }
+  favoriteWord?: { word: string; meaning: { en: string; ko: string } }
+  bio?: { en: string[]; ko: string[] }
   links: { label: string; url: string }[]
-  portrait: string
+  portrait?: string
   avatar?: string // small square face photo for the Members cards
   photos: { src: string; caption?: { en: string; ko: string } }[]
   tournaments: TournamentResult[] // newest first
@@ -60,10 +62,9 @@ export const profiles: PlayerProfile[] = [
     name: 'Minsue Kim',
     nameKo: '김민수',
     ratingSource: 'WESPA',
-    ratingId: 2783,
     ratingUrl: 'https://wespa.xerafin.net/player.html?id=2783',
     asOf: '2026-11-24',
-    rating: 1626,
+    ratings: [{ label: 'WESPA', current: 1626 }],
     stats: {
       games: 199,
       wins: 92,
@@ -84,7 +85,7 @@ export const profiles: PlayerProfile[] = [
       en: [
         'Minsue grew up in Thailand from the age of three, and started playing Scrabble competitively as a student at eleven. In Thailand, Scrabble is treated as a competitive sport, and strong players can even earn scholarships to university.',
         'He returned to Korea for college and took a four-year break from the game before coming back to competitive tournaments.',
-        'In the summer of 2026 he found out that another competitive player, Emanuel Chicoine, was in Korea, and decided to start a Scrabble community here which became the Korea Scrabble Club.',
+        'In the summer of 2026 he found out that another competitive player, Emanuel Chicoine, was in Korea, and decided to start a Scrabble community here. That became the Korea Scrabble Club.',
       ],
       ko: [
         '세 살 때부터 태국에서 자랐고, 열한 살에 학생 신분으로 경쟁 스크래블을 시작했어요. 태국에서는 스크래블이 하나의 스포츠로 여겨져서, 실력이 좋으면 대학 입학 장학금까지 받을 수 있어요.',
@@ -357,6 +358,146 @@ export const profiles: PlayerProfile[] = [
       },
     ],
   },
+  {
+    slug: 'emanuel-chicoine',
+    name: 'Emanuel Chicoine',
+    hometown: { en: 'Montreal, QC, Canada', ko: '캐나다 퀘벡주 몬트리올' },
+    ratingSource: 'NASPA',
+    asOf: '2026-11-24',
+    ratings: [
+      { label: 'NWL', current: 1745, lexicon: 'NWL' },
+      { label: 'CSW', current: 1743, lexicon: 'CSW' },
+    ],
+    stats: {
+      games: 416,
+      wins: 217,
+      losses: 199,
+      draws: 0,
+      averageFor: 406,
+      averageAgainst: 404,
+    },
+    links: [],
+    photos: [],
+    tournaments: [
+      { date: '2014-07-18', name: 'Las Vegas, NV Main Event', division: '1', record: '9-10', spread: -370, place: 28, field: 40, lexicon: 'NWL', endRating: 1745, change: -5 },
+      { date: '2014-05-24', name: 'Montreal, QC', division: '1', record: '9-5', spread: 512, place: 3, field: 12, lexicon: 'NWL', endRating: 1750, change: 47 },
+      { date: '2013-01-26', name: 'Montreal vs Ottawa (CSW)', division: '1', record: '2-6', spread: -483, place: 6, field: 6, lexicon: 'CSW', endRating: 1743, change: -59,
+        games: [
+          { round: 1, opponent: 'Chris Ten Den', opponentRating: 1418, score: 385, opponentScore: 446 },
+          { round: 2, opponent: 'Chris Ten Den', opponentRating: 1418, score: 418, opponentScore: 374 },
+          { round: 3, opponent: 'Adam Logan', opponentRating: 2122, score: 373, opponentScore: 502 },
+          { round: 4, opponent: 'Adam Logan', opponentRating: 2122, score: 327, opponentScore: 596 },
+          { round: 5, opponent: 'Jeremy Hildebrand', opponentRating: 1825, score: 476, opponentScore: 500 },
+          { round: 6, opponent: 'Jeremy Hildebrand', opponentRating: 1825, score: 362, opponentScore: 485 },
+          { round: 7, opponent: 'Jeremy Hildebrand', opponentRating: 1825, score: 464, opponentScore: 359 },
+          { round: 8, opponent: 'Jeremy Hildebrand', opponentRating: 1825, score: 447, opponentScore: 473 },
+        ],
+      },
+      { date: '2012-08-11', name: '23rd National Championship (CSW)', division: '1', record: '16-14', spread: 934, place: 18, field: 37, lexicon: 'CSW', endRating: 1802, change: -79,
+        games: [
+          { round: 1, opponent: 'Jim Lamerand', opponentRating: 1578, score: 457, opponentScore: 444 },
+          { round: 2, opponent: 'Daniel Milton', opponentRating: 1423, score: 438, opponentScore: 392 },
+          { round: 3, opponent: 'Sam Kantimathi', opponentRating: 1995, score: 451, opponentScore: 507 },
+          { round: 4, opponent: 'Puneet Sharma', opponentRating: 1475, score: 500, opponentScore: 391 },
+          { round: 5, opponent: 'Tony Leah', opponentRating: 1908, score: 420, opponentScore: 386 },
+          { round: 6, opponent: 'Marty Gabriel', opponentRating: 1892, score: 362, opponentScore: 463 },
+          { round: 7, opponent: 'Mark Kenas', opponentRating: 1916, score: 455, opponentScore: 318 },
+          { round: 8, opponent: 'Bob Lipton', opponentRating: 1811, score: 443, opponentScore: 468 },
+          { round: 9, opponent: 'Matthew Bernardina', opponentRating: 1962, score: 442, opponentScore: 591 },
+          { round: 10, opponent: 'Robert Linn', opponentRating: 1705, score: 465, opponentScore: 362 },
+          { round: 11, opponent: 'David Koenig', opponentRating: 1953, score: 445, opponentScore: 471 },
+          { round: 12, opponent: 'Joel Wapnick', opponentRating: 1925, score: 394, opponentScore: 460 },
+          { round: 13, opponent: 'Sandy Nang', opponentRating: 1577, score: 503, opponentScore: 290 },
+          { round: 14, opponent: 'Chris Lipe', opponentRating: 1922, score: 386, opponentScore: 534 },
+          { round: 15, opponent: 'Zbigniew Wieckowski', opponentRating: 1317, score: 399, opponentScore: 402 },
+          { round: 16, opponent: 'Marcia Richards', opponentRating: 1674, score: 430, opponentScore: 323 },
+          { round: 17, opponent: 'Susan Gordon', opponentRating: 649, score: 394, opponentScore: 376 },
+          { round: 18, opponent: 'Jeremy Hildebrand', opponentRating: 1650, score: 368, opponentScore: 492 },
+          { round: 20, opponent: 'Ezekiel Markwei', opponentRating: 1346, score: 387, opponentScore: 401 },
+          { round: 21, opponent: 'Caroline Polak Scowcroft', opponentRating: 1253, score: 478, opponentScore: 371 },
+          { round: 22, opponent: 'Cedric Lewis', opponentRating: 1440, score: 478, opponentScore: 310 },
+          { round: 23, opponent: 'Eric Kinderman', opponentRating: 1525, score: 373, opponentScore: 406 },
+          { round: 24, opponent: 'Martin Demello', opponentRating: 1561, score: 506, opponentScore: 285 },
+          { round: 25, opponent: 'Pat Schuberg', opponentRating: 1049, score: 485, opponentScore: 337 },
+          { round: 26, opponent: 'John Van Pelt', opponentRating: 1676, score: 538, opponentScore: 360 },
+          { round: 27, opponent: 'Orlet Bullock', opponentRating: 1715, score: 448, opponentScore: 465 },
+          { round: 28, opponent: 'Laurie Cohen', opponentRating: 1871, score: 440, opponentScore: 363 },
+          { round: 29, opponent: 'Puneet Sharma', opponentRating: 1529, score: 389, opponentScore: 395 },
+          { round: 30, opponent: 'Winter', opponentRating: 1785, score: 405, opponentScore: 393 },
+          { round: 31, opponent: 'Matthew Bernardina', opponentRating: 1994, score: 383, opponentScore: 422 },
+        ],
+      },
+      { date: '2012-05-26', name: 'Montreal, QC (CSW)', division: '1', record: '9-5', spread: 374, place: 2, field: 12, lexicon: 'CSW', endRating: 1881, change: 178,
+        games: [
+          { round: 1, opponent: 'Joel Wapnick', opponentRating: 1974, score: 494, opponentScore: 409 },
+          { round: 2, opponent: 'Adam Logan', opponentRating: 2121, score: 426, opponentScore: 379 },
+          { round: 3, opponent: 'Sam Rosin', opponentRating: 1870, score: 438, opponentScore: 385 },
+          { round: 4, opponent: 'Evans Clinchy', opponentRating: 1897, score: 374, opponentScore: 468 },
+          { round: 5, opponent: 'Chris Lipe', opponentRating: 1952, score: 395, opponentScore: 459 },
+          { round: 6, opponent: 'Sandy Nang', opponentRating: 1601, score: 446, opponentScore: 393 },
+          { round: 7, opponent: 'Lucas Freeman', opponentRating: 1760, score: 508, opponentScore: 450 },
+          { round: 8, opponent: 'Bradley Whitmarsh', opponentRating: 1891, score: 496, opponentScore: 391 },
+          { round: 9, opponent: 'Matthew Tunnicliffe', opponentRating: 1910, score: 535, opponentScore: 341 },
+          { round: 10, opponent: 'Joel Wapnick', opponentRating: 1974, score: 548, opponentScore: 384 },
+          { round: 11, opponent: 'Evans Clinchy', opponentRating: 1897, score: 378, opponentScore: 524 },
+          { round: 12, opponent: 'Chris Lipe', opponentRating: 1952, score: 392, opponentScore: 447 },
+          { round: 13, opponent: 'Adam Logan', opponentRating: 2121, score: 522, opponentScore: 404 },
+          { round: 14, opponent: 'Adam Logan', opponentRating: 2121, score: 335, opponentScore: 479 },
+        ],
+      },
+      { date: '2010-10-15', name: 'Lake George, NY Main Event', division: '1', record: '5-10', spread: -455, place: 23, field: 28, lexicon: 'NWL', endRating: 1703, change: -28 },
+      { date: '2008-07-05', name: 'Montreal vs Ottawa', division: '1', record: '2-5', spread: -171, place: 9, field: 12, lexicon: 'NWL', endRating: 1731, change: -67 },
+      { date: '2005-07-24', name: 'Canadian WSCQT', division: '1', record: '5-8', spread: -392, place: 6, field: 7, lexicon: 'CSW' },
+      { date: '2005-06-09', name: 'Canadian Championship Main Event', division: '1', record: '11-7', spread: 832, place: 8, field: 50, lexicon: 'NWL', endRating: 1798, change: 30 },
+      { date: '2005-05-28', name: 'Montreal QC', division: '1', record: '6-6', spread: -215, place: 16, field: 26, lexicon: 'NWL', endRating: 1768, change: -10 },
+      { date: '2004-07-02', name: 'Albany NY Main Event', division: '1', record: '11-9', spread: -233, place: 11, field: 30, lexicon: 'NWL', endRating: 1778, change: 62 },
+      { date: '2004-06-26', name: 'Ottawa ON', division: '1', record: '5-2', spread: 396, place: 2, field: 6, lexicon: 'NWL', endRating: 1716, change: 68 },
+      { date: '2004-05-29', name: 'Montreal QC', division: '1', record: '6-6', spread: -369, place: 13, field: 20, lexicon: 'NWL', endRating: 1648, change: 28 },
+      { date: '2004-01-31', name: 'Kingston ON', division: '1', record: '3-9', spread: 0, place: 15, field: 16, lexicon: 'NWL', endRating: 1620, change: -25 },
+      { date: '2003-10-21', name: '7th World Championship (CSW)', division: '1', record: '9-15', spread: -468, place: 81, field: 90, lexicon: 'CSW',
+        games: [
+          { round: 1, opponent: 'Karl Khoshnaw', score: 403, opponentScore: 396 },
+          { round: 2, opponent: 'Tony Sim', score: 326, opponentScore: 415 },
+          { round: 3, opponent: 'Andrew Golding', score: 387, opponentScore: 426 },
+          { round: 4, opponent: 'Patrick Carter', score: 407, opponentScore: 527 },
+          { round: 5, opponent: 'Bronagh Kenny', score: 375, opponentScore: 354 },
+          { round: 6, opponent: 'Mario Recedes', score: 393, opponentScore: 537 },
+          { round: 7, opponent: 'Leonardo Capuno', score: 361, opponentScore: 377 },
+          { round: 8, opponent: 'Sivanesan Saeyorn', score: 428, opponentScore: 374 },
+          { round: 9, opponent: 'Joshua Otieno Manase', score: 409, opponentScore: 453 },
+          { round: 10, opponent: 'Herve Bohbot', score: 511, opponentScore: 301 },
+          { round: 11, opponent: 'Paul Yandisha Kalumba', score: 334, opponentScore: 397 },
+          { round: 12, opponent: 'Rogelio Talosig', score: 511, opponentScore: 337 },
+          { round: 13, opponent: 'Michael Gongolo', score: 408, opponentScore: 399 },
+          { round: 14, opponent: 'Randy Hersom', score: 302, opponentScore: 469 },
+          { round: 15, opponent: 'Stanley Njoroge Ndungu', score: 358, opponentScore: 468 },
+          { round: 16, opponent: 'Ronald Credo', score: 391, opponentScore: 368 },
+          { round: 17, opponent: 'Ralph Lobo', score: 432, opponentScore: 445 },
+          { round: 18, opponent: 'Ronald Credo', score: 304, opponentScore: 370 },
+          { round: 19, opponent: 'Mario Recedes', score: 435, opponentScore: 397 },
+          { round: 20, opponent: 'Amit Chakrabarti', score: 367, opponentScore: 426 },
+          { round: 21, opponent: 'Joshua Otieno Manase', score: 482, opponentScore: 392 },
+          { round: 22, opponent: 'Ronald Credo', score: 418, opponentScore: 443 },
+          { round: 23, opponent: 'Mario Recedes', score: 386, opponentScore: 390 },
+          { round: 24, opponent: 'Dean Saldanha', score: 315, opponentScore: 450 },
+        ],
+      },
+      { date: '2003-09-20', name: 'Toronto ON Main Event', division: '1', record: '4-8', spread: -506, place: 20, field: 22, lexicon: 'NWL', endRating: 1645, change: -6 },
+      { date: '2003-07-12', name: 'Canadian WSCQT', division: '1', record: '8-5', spread: 768, place: 2, lexicon: 'CSW' },
+      { date: '2003-07-04', name: 'Albany NY Main Event', division: '1', record: '9-11', spread: -235, place: 20, field: 42, lexicon: 'NWL', endRating: 1651, change: 10 },
+      { date: '2003-05-24', name: 'Montreal QC', division: '1', record: '6-6', spread: -383, place: 15, field: 24, lexicon: 'NWL', endRating: 1641, change: 24 },
+      { date: '2002-12-07', name: 'Kingston ON', division: '1', record: '3-9', spread: 0, place: 19, field: 20, lexicon: 'NWL', endRating: 1617, change: -5 },
+      { date: '2002-10-18', name: 'Lake George NY', division: '2', record: '12-3', spread: 1093, place: 1, field: 26, lexicon: 'NWL', endRating: 1622, change: 75 },
+      { date: '2002-09-28', name: 'Toronto ON Main Event', division: '2', record: '10-2', spread: 718, place: 1, field: 28, lexicon: 'NWL', endRating: 1547, change: 160 },
+      { date: '2002-05-25', name: 'Montreal QC', division: '4', record: '8-4', spread: 709, place: 1, field: 12, lexicon: 'NWL', endRating: 1387, change: 42 },
+      { date: '2001-11-24', name: 'Kingston ON', division: '2', record: '6-6', spread: 0, place: 5, field: 14, lexicon: 'NWL', endRating: 1345, change: 41 },
+      { date: '2001-10-19', name: 'Lake George NY', division: '2', record: '6-9', spread: 85, place: 18, field: 26, lexicon: 'NWL', endRating: 1304, change: 30 },
+      { date: '2001-09-29', name: 'Toronto ON Main Event', division: '3', record: '8-4', spread: 364, place: 2, field: 20, lexicon: 'NWL', endRating: 1274, change: 64 },
+      { date: '2001-07-05', name: 'Albany NY', division: '3', record: '13-7', spread: 730, place: 3, field: 27, lexicon: 'NWL', endRating: 1210, change: 48 },
+      { date: '2001-05-26', name: 'Montreal QC', division: '5', record: '8-4', spread: 773, place: 2, field: 12, lexicon: 'NWL', endRating: 1162, change: 111 },
+      { date: '2000-09-23', name: 'Toronto ON', division: '4', record: '8-4', spread: 337, place: 3, field: 28, lexicon: 'NWL', endRating: 1051 },
+    ],
+  },
 ]
 
 // Photos for the Members cards of players who don't have a full profile yet.
@@ -373,5 +514,12 @@ export const findProfile = (slug: string | undefined) => profiles.find((p) => p.
 
 export const profileForName = (name: string) => profiles.find((p) => p.name === name)
 
-export const careerHigh = (profile: PlayerProfile) =>
-  Math.max(profile.rating, ...profile.tournaments.map((t) => t.endRating))
+// Career high for one rating line: given, or the highest end rating among matching events
+export const careerHighFor = (profile: PlayerProfile, rating: PlayerProfile['ratings'][number]) => {
+  if (rating.careerHigh) return rating.careerHigh
+  const ends = profile.tournaments
+    .filter((t) => (rating.lexicon ? t.lexicon === rating.lexicon : true))
+    .map((t) => t.endRating)
+    .filter((r): r is number => r !== undefined)
+  return Math.max(rating.current, ...ends)
+}

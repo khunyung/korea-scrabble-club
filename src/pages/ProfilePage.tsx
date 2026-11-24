@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import RatingChart from '../components/RatingChart'
-import { careerHigh, findProfile, type TournamentResult } from '../data/profiles'
+import { careerHighFor, findProfile, type TournamentResult } from '../data/profiles'
 import { en, ko } from '../i18n'
 
 type ProfilePageProps = {
@@ -37,6 +37,16 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
   }
 
   const lang = isEnglish ? 'en' : 'ko'
+  // "NWL" -> "NASPA NWL", "WESPA" stays "WESPA"
+  const ratingName = (label: string) =>
+    label === profile.ratingSource ? label : `${profile.ratingSource} ${label}`
+  const SERIES_COLORS = ['#b48a43', '#4a79a8']
+  const rated = profile.tournaments.filter((t) => t.endRating !== undefined)
+  const chartSeries = profile.ratings.map((r, i) => ({
+    label: ratingName(r.label),
+    color: SERIES_COLORS[i % SERIES_COLORS.length],
+    points: r.lexicon ? rated.filter((t) => t.lexicon === r.lexicon) : rated,
+  }))
   const s = profile.stats
   const winRate = Math.round((s.wins / s.games) * 1000) / 10 // same method as WESPA: wins ÷ games
 
@@ -55,38 +65,49 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
           {profile.nameKo && (
             <p className="profile-altname">{isEnglish ? profile.nameKo : profile.name}</p>
           )}
+          {profile.hometown && <p className="profile-hometown">{profile.hometown[lang]}</p>}
           <div className="profile-ratings">
-            <div>
-              <strong>{profile.rating}</strong>
-              <span>{tx.currentRating(profile.ratingSource)}</span>
-            </div>
-            <div>
-              <strong>{careerHigh(profile)}</strong>
-              <span>{tx.careerHigh}</span>
-            </div>
-            {profile.ranking?.world && (
-              <div>
-                <strong>#{profile.ranking.world}</strong>
-                <span>{tx.worldRanking(profile.ratingSource)}</span>
+            {profile.ratings.map((r) => (
+              <div key={r.label} className="profile-rating-group">
+                <div>
+                  <strong>{r.current}</strong>
+                  <span>{tx.currentRating(ratingName(r.label))}</span>
+                </div>
+                <div>
+                  <strong>{careerHighFor(profile, r)}</strong>
+                  <span>{tx.careerHighOf(ratingName(r.label))}</span>
+                </div>
               </div>
-            )}
+            ))}
           </div>
           <p className="profile-asof">
             {tx.asOf(profile.asOf)}{' '}
-            <a href={profile.ratingUrl} target="_blank" rel="noreferrer">
-              {tx.source(profile.ratingSource)} ↗
-            </a>
+            {profile.ratingUrl ? (
+              <a href={profile.ratingUrl} target="_blank" rel="noreferrer">
+                {tx.source(profile.ratingSource)} ↗
+              </a>
+            ) : (
+              tx.sourceName(profile.ratingSource)
+            )}
           </p>
         </div>
-        <img className="profile-portrait" src={profile.portrait} alt={profile.name} />
+        {profile.portrait ? (
+          <img className="profile-portrait" src={profile.portrait} alt={profile.name} />
+        ) : (
+          <div className="profile-portrait profile-portrait-initial" aria-hidden="true">
+            {profile.name.charAt(0)}
+          </div>
+        )}
       </section>
 
       <section className="page-body profile-intro">
         <div className="about-text">
           <h2 className="stats-title">{tx.aboutTitle}</h2>
-          {profile.bio[lang].map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+          {profile.bio ? (
+            profile.bio[lang].map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+          ) : (
+            <p>{tx.noBio}</p>
+          )}
           {profile.links.length > 0 && (
             <div className="profile-links">
               {profile.links.map((link) => (
@@ -97,6 +118,7 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
             </div>
           )}
         </div>
+        {profile.favoriteWord && (
         <aside className="favorite-word">
           <span className="section-label">{tx.favoriteWord}</span>
           <div className="favorite-tiles" aria-label={profile.favoriteWord.word}>
@@ -108,6 +130,7 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
           </div>
           <p>{profile.favoriteWord.meaning[lang]}</p>
         </aside>
+        )}
       </section>
 
       <section className="page-body learn-alt">
@@ -130,21 +153,23 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
           </div>
           <div>
             <dt>{tx.averageFor}</dt>
-            <dd>{s.averageFor.toFixed(1)}</dd>
+            <dd>{Number.isInteger(s.averageFor) ? s.averageFor : s.averageFor.toFixed(1)}</dd>
           </div>
           <div>
             <dt>{tx.averageAgainst}</dt>
-            <dd>{s.averageAgainst.toFixed(1)}</dd>
+            <dd>{Number.isInteger(s.averageAgainst) ? s.averageAgainst : s.averageAgainst.toFixed(1)}</dd>
           </div>
-          <div>
-            <dt>{tx.highGame}</dt>
-            <dd>{s.highGame}</dd>
-          </div>
+          {s.highGame !== undefined && (
+            <div>
+              <dt>{tx.highGame}</dt>
+              <dd>{s.highGame}</dd>
+            </div>
+          )}
         </dl>
 
         <h3 className="profile-subtitle">{tx.ratingHistory}</h3>
         <div className="rating-chart-wrap">
-          <RatingChart tournaments={profile.tournaments} label={tx.ratingHistory} />
+          <RatingChart series={chartSeries} label={tx.ratingHistory} />
         </div>
       </section>
 
@@ -172,7 +197,11 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
                       <td className="archive-date">{t.date}</td>
                       <td>
                         {t.name}
-                        <span className="profile-division"> · {tx.division} {t.division}</span>
+                        <span className="profile-division">
+                          {' '}
+                          · {tx.division} {t.division}
+                          {t.lexicon && ` · ${t.lexicon}`}
+                        </span>
                         {t.games && (
                           <button
                             type="button"
@@ -188,12 +217,20 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
                       <td className={t.spread >= 0 ? 'value-up' : 'value-down'}>
                         {t.spread > 0 ? `+${t.spread}` : t.spread}
                       </td>
-                      <td>{t.place}</td>
+                      <td>{t.field ? `${t.place} / ${t.field}` : t.place}</td>
                       <td className="archive-score">
-                        {t.endRating}{' '}
-                        <span className={t.change >= 0 ? 'value-up' : 'value-down'}>
-                          ({t.change > 0 ? `+${t.change}` : t.change})
-                        </span>
+                        {t.endRating === undefined ? (
+                          <span className="profile-division">{tx.unrated}</span>
+                        ) : (
+                          <>
+                            {t.endRating}{' '}
+                            {t.change !== undefined && (
+                              <span className={t.change >= 0 ? 'value-up' : 'value-down'}>
+                                ({t.change > 0 ? `+${t.change}` : t.change})
+                              </span>
+                            )}
+                          </>
+                        )}
                       </td>
                     </tr>
                     {isOpen && t.games && (
@@ -216,7 +253,7 @@ function ProfilePage({ isEnglish }: ProfilePageProps) {
                                   <tr key={g.round}>
                                     <td>{g.round}</td>
                                     <td>{g.opponent}</td>
-                                    <td>{g.opponentRating}</td>
+                                    <td>{g.opponentRating ?? '–'}</td>
                                     <td>
                                       <span className={`result-badge result-${result}`}>{tx.resultLetter[result]}</span>
                                     </td>

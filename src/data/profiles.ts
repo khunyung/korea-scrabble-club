@@ -376,7 +376,7 @@ export const profiles: PlayerProfile[] = [
       averageFor: 406,
       averageAgainst: 404,
     },
-    links: [],
+    links: [{ label: 'Woogles', url: 'https://woogles.io/profile/the_montrealorian' }],
     photos: [],
     tournaments: [
       { date: '2014-07-18', name: 'Las Vegas, NV Main Event', division: '1', record: '9-10', spread: -370, place: 28, field: 40, lexicon: 'NWL', endRating: 1745, change: -5 },

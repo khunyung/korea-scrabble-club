@@ -1,28 +1,14 @@
-import { useState } from 'react'
 import { en, ko } from '../i18n'
 import ClubSeal from '../components/ClubSeal'
+import ContactCards from '../components/ContactCards'
 import { playerStats, totalGames } from '../data/results'
 
 type AboutPageProps = {
   isEnglish: boolean
 }
 
-const CONTACT_EMAIL = 'minsueinwkim@gmail.com'
-const KAKAO_ID = 'khunyung2377'
-
 function AboutPage({ isEnglish }: AboutPageProps) {
   const tx = (isEnglish ? en : ko).about
-  const [copied, setCopied] = useState(false)
-
-  const copyKakaoId = async () => {
-    try {
-      await navigator.clipboard.writeText(KAKAO_ID)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // Copying can be blocked by the browser; the ID is still shown on screen
-    }
-  }
 
   const facts = [
     { value: tx.factYear, label: tx.factYearLabel },
@@ -121,21 +107,7 @@ function AboutPage({ isEnglish }: AboutPageProps) {
           </p>
         </div>
 
-        <div className="contact-list">
-          <a href={`mailto:${CONTACT_EMAIL}`} className="contact-card">
-            <span className="contact-label">{tx.email}</span>
-            <strong>{CONTACT_EMAIL}</strong>
-          </a>
-          <button type="button" className="contact-card" onClick={copyKakaoId}>
-            <span className="contact-label">
-              {tx.kakaotalkId}
-              <span className="contact-hint">
-                {copied ? tx.copied : tx.clickToCopy}
-              </span>
-            </span>
-            <strong>{KAKAO_ID}</strong>
-          </button>
-        </div>
+        <ContactCards isEnglish={isEnglish} />
       </section>
     </main>
   )

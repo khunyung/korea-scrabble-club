@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { en, ko } from '../i18n'
+import ContactCards from '../components/ContactCards'
 import FeatureIcon from '../components/FeatureIcon'
 import ScrabbleBoard from '../components/ScrabbleBoard'
 import { games } from '../data/games'
@@ -151,9 +152,7 @@ function HomePage({ isEnglish }: HomePageProps) {
             <h2>{tx.joinTitle}</h2>
             <p>{tx.footer}</p>
           </div>
-          <a href="mailto:minsueinwkim@gmail.com" className="button-primary">
-            {tx.contact} →
-          </a>
+          <ContactCards isEnglish={isEnglish} />
         </section>
       </main>
   )
